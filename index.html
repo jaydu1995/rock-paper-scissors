@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title></title>
+  </head>
+  <body>
+    <script>
+      function game() {
+        let playerSelection;
+        let computerSelection;
+        let playerWins = 0;
+        let computerWins = 0;
+        
+        gameLoop(playerSelection, computerSelection, playerWins, computerWins);
+
+      }
+
+      function gameLoop(playerSelection, computerSelection, playerWins, computerWins) {
+        for (let i = 0; i < 5; i++) {
+          playerSelection = prompt("Choose");
+          computerSelection = computerPlay();
+          result = playRound(playerSelection, computerSelection);
+
+          if (result.includes("win")) {
+            playerWins++;
+          } else if (result.includes("lose")) {
+            computerWins++;
+          }
+
+          logResults(playerSelection, computerSelection, playerWins, computerWins);
+        }
+
+          logWinner(playerWins, computerWins)
+      }
+
+      function playRound(playerSelection, computerSelection) {
+
+        if (playerSelection === null) {
+          alert("Canceled!")
+          throw "stop execution";
+        }
+        playerSelection = playerSelection.toLowerCase();
+        switch (true) {
+          case playerSelection == "rock" && computerSelection == "paper":
+            result = "You lose! Paper beats Rock";
+            break;
+          case playerSelection == "paper" && computerSelection == "scissors":
+            result = "You lose! Scissors beats Paper";
+            break;
+          case playerSelection == "scissors" && computerSelection == "rock":
+            result = "You lose! Rock beats Scissors";
+            break;
+          case playerSelection == "rock" && computerSelection == "scissors":
+            result = "You win! Rock beats Scissors";
+            break;
+          case playerSelection == "paper" && computerSelection == "rock":
+            result = "You win! Paper beats Rock";
+            break;
+          case playerSelection == "scissors" && computerSelection == "paper":
+            result = "You win! Scissors beats Paper";
+            break;
+          case playerSelection == "rock" && computerSelection == "rock":
+            result = "It's a draw! Rock ties with Rock!";
+            break;
+          case playerSelection == "paper" && computerSelection == "paper":
+            result = "It's a draw! Paper ties with Paper!";
+            break;
+          case playerSelection == "scissors" && computerSelection == "scissors":
+            result = "It's a draw! Sccisors ties with Scissors!";
+            break;
+          default:
+            result = "Please enter one of rock, paper, or scissors.";
+        }
+
+        return result;
+      }
+
+      function computerPlay() {
+        choices = ["rock", "paper", "scissors"];
+        return choices[getRandomInt(3)];
+      }
+
+      function getRandomInt(max) {
+        return Math.floor(Math.random() * Math.floor(max));
+      }
+
+      function logResults(playerSelection, computerSelection, playerWins, computerWins) {
+        console.log(`You chose: ${playerSelection}, computer chose: ${computerSelection}`);
+        console.log(result);
+        console.log(`Player: ${playerWins} Computer: ${computerWins}`);
+      }
+
+      function logWinner(playerWins, computerWins) {
+        whoWon =
+          playerWins > computerWins
+            ? "You won the game!" :
+            computerWins > playerWins
+            ? "Computer won the game!" :
+            "It's a draw!";
+
+        console.log(whoWon);
+      }
+
+      game();
+    </script>
+  </body>
+</html>
